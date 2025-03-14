@@ -1,4 +1,7 @@
-﻿namespace CharitySale.Api.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace CharitySale.Api.Entities;
 
 public class Sale
 {

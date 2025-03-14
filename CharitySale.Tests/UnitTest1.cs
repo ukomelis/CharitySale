@@ -1,4 +1,6 @@
-﻿namespace CharitySale.Tests;
+﻿using NUnit.Framework;
+
+namespace CharitySale.Tests;
 
 public class Tests
 {
