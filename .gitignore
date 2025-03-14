@@ -1,42 +1,74 @@
-   # .NET Core build output
-   bin/
-   obj/
-   
-   # Visual Studio and Rider files
-   .vs/
-   .idea/
-   *.user
-   *.userosscache
-   *.suo
-   *.userprefs
-   
-   # Build results
-   [Dd]ebug/
-   [Rr]elease/
-   x64/
-   x86/
-   [Aa][Rr][Mm]/
-   [Aa][Rr][Mm]64/
-   bld/
-   [Bb]in/
-   [Oo]bj/
-   [Ll]og/
-      
-   # Docker volumes
-   **/postgres_data/
-   
-   # Temporary/backup files
-   *~
-   *.swp
-   *.bak
-   
-   # Logs
-   logs/
-   *.log
-   npm-debug.log*
-   
-   # Environment variables
-   .env
-   
-   # User-specific files
-   *.rsuser
+# .NET build artifacts
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# IDE files
+.vs/
+.idea/
+*.suo
+*.user
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# NuGet packages
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
+# Other common files to ignore
+.DS_Store
+Thumbs.db
