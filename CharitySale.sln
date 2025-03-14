@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharitySale.Tests", "CharitySale.Tests\CharitySale.Tests.csproj", "{5A35B943-3B20-426B-AA9B-61298B35468F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharitySale.Api", "CharitySale.Api\CharitySale.Api.csproj", "{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A35B943-3B20-426B-AA9B-61298B35468F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A35B943-3B20-426B-AA9B-61298B35468F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A35B943-3B20-426B-AA9B-61298B35468F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A35B943-3B20-426B-AA9B-61298B35468F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

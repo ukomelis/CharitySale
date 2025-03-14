@@ -1,0 +1,42 @@
+   # .NET Core build output
+   bin/
+   obj/
+   
+   # Visual Studio and Rider files
+   .vs/
+   .idea/
+   *.user
+   *.userosscache
+   *.suo
+   *.userprefs
+   
+   # Build results
+   [Dd]ebug/
+   [Rr]elease/
+   x64/
+   x86/
+   [Aa][Rr][Mm]/
+   [Aa][Rr][Mm]64/
+   bld/
+   [Bb]in/
+   [Oo]bj/
+   [Ll]og/
+      
+   # Docker volumes
+   **/postgres_data/
+   
+   # Temporary/backup files
+   *~
+   *.swp
+   *.bak
+   
+   # Logs
+   logs/
+   *.log
+   npm-debug.log*
+   
+   # Environment variables
+   .env
+   
+   # User-specific files
+   *.rsuser
