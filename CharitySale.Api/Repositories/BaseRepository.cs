@@ -7,8 +7,7 @@ namespace CharitySale.Api.Repositories;
 public class BaseRepository<T>(CharitySaleDbContext context) : IRepository<T>
     where T : class
 {
-    protected readonly CharitySaleDbContext _context = context;
-    protected readonly DbSet<T> _dbSet = context.Set<T>();
+    private readonly DbSet<T> _dbSet = context.Set<T>();
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
@@ -25,20 +24,24 @@ public class BaseRepository<T>(CharitySaleDbContext context) : IRepository<T>
         return await _dbSet.FindAsync(id);
     }
 
-    public virtual async Task AddAsync(T entity)
+    public virtual async Task<T> AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
+        
+        return entity;
     }
 
-    public virtual void Update(T entity)
+    public virtual T Update(T entity)
     {
         _dbSet.Attach(entity);
-        _context.Entry(entity).State = EntityState.Modified;
+        context.Entry(entity).State = EntityState.Modified;
+        
+        return entity;
     }
 
     public virtual void Delete(T entity)
     {
-        if (_context.Entry(entity).State == EntityState.Detached)
+        if (context.Entry(entity).State == EntityState.Detached)
         {
             _dbSet.Attach(entity);
         }
@@ -48,6 +51,6 @@ public class BaseRepository<T>(CharitySaleDbContext context) : IRepository<T>
 
     public virtual async Task<bool> SaveChangesAsync()
     {
-       return await _context.SaveChangesAsync() > 0;
+       return await context.SaveChangesAsync() > 0;
     }
 }

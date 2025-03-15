@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CharitySale.Api.Entities;
+﻿namespace CharitySale.Api.Entities;
 
 public class Sale
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public DateTime SaleDate { get; set; }
     public decimal TotalAmount { get; set; }
     

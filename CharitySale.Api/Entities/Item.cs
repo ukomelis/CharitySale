@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using CharitySale.Api.Models.Enums;
 
 namespace CharitySale.Api.Entities;
 
 public class Item
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public required string Name { get; set; }
     public decimal Price { get; set; }
     public int Quantity { get; set; }
@@ -12,10 +12,4 @@ public class Item
     public Category Category { get; set; }
 
     public ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
-}
-
-public enum Category
-{
-    Food = 0,
-    Other = 1
 }
