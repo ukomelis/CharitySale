@@ -1,5 +1,6 @@
 using System;
 using CharitySale.Api.Context;
+using CharitySale.Api.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,10 +24,15 @@ public class Program
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        
+        //Register repositories
+        builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+        builder.Services.AddScoped<IItemRepository, ItemRepository>();
+        builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 
         var app = builder.Build();
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CharitySale API v1"));
 
         // Configure the HTTP request pipeline.
         // if (app.Environment.IsDevelopment())
