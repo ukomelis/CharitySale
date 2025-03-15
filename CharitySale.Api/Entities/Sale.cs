@@ -2,7 +2,7 @@
 
 public class Sale
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
     public DateTime SaleDate { get; set; }
     public decimal TotalAmount { get; set; }
     

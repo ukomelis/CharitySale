@@ -20,16 +20,17 @@ namespace CharitySale.Api.Migrations
                 .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("CharitySale.Api.Entities.Item", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<int>("Category")
-                        .HasMaxLength(10)
                         .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
@@ -52,9 +53,9 @@ namespace CharitySale.Api.Migrations
 
                     b.ToTable("Items", t =>
                         {
-                            t.HasCheckConstraint("CK_Item_Price_Positive", "[Price] >= 0");
+                            t.HasCheckConstraint("CK_Item_Price_Positive", "\"Price\" >= 0");
 
-                            t.HasCheckConstraint("CK_Item_Quantity_NonNegative", "[Quantity] >= 0");
+                            t.HasCheckConstraint("CK_Item_Quantity_NonNegative", "\"Quantity\" >= 0");
                         });
 
                     b.HasData(
@@ -145,7 +146,8 @@ namespace CharitySale.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("timestamp with time zone");
@@ -158,7 +160,7 @@ namespace CharitySale.Api.Migrations
 
                     b.ToTable("Sales", t =>
                         {
-                            t.HasCheckConstraint("CK_Sale_TotalAmount_NonNegative", "[TotalAmount] >= 0");
+                            t.HasCheckConstraint("CK_Sale_TotalAmount_NonNegative", "\"TotalAmount\" >= 0");
                         });
                 });
 
@@ -166,7 +168,8 @@ namespace CharitySale.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uuid");
@@ -189,9 +192,9 @@ namespace CharitySale.Api.Migrations
 
                     b.ToTable("SaleItems", t =>
                         {
-                            t.HasCheckConstraint("CK_SaleItem_Quantity_Positive", "[Quantity] > 0");
+                            t.HasCheckConstraint("CK_SaleItem_Quantity_Positive", "\"Quantity\" > 0");
 
-                            t.HasCheckConstraint("CK_SaleItem_UnitPrice_NonNegative", "[UnitPrice] >= 0");
+                            t.HasCheckConstraint("CK_SaleItem_UnitPrice_NonNegative", "\"UnitPrice\" >= 0");
                         });
                 });
 

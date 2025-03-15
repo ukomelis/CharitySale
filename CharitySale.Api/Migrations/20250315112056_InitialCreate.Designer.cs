@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CharitySale.Api.Migrations
 {
     [DbContext(typeof(CharitySaleDbContext))]
-    [Migration("20250314221937_InitialCreate")]
+    [Migration("20250315112056_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -23,18 +23,17 @@ namespace CharitySale.Api.Migrations
                 .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("CharitySale.Api.Entities.Item", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<int>("Category")
-                        .HasMaxLength(10)
                         .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
@@ -55,12 +54,17 @@ namespace CharitySale.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", t =>
+                        {
+                            t.HasCheckConstraint("CK_Item_Price_Positive", "\"Price\" >= 0");
+
+                            t.HasCheckConstraint("CK_Item_Quantity_NonNegative", "\"Quantity\" >= 0");
+                        });
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e9f"),
                             Category = 0,
                             ImageUrl = "/images/brownie.jpg",
                             Name = "Brownie",
@@ -69,7 +73,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e10"),
                             Category = 0,
                             ImageUrl = "/images/muffin.jpg",
                             Name = "Muffin",
@@ -78,7 +82,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e11"),
                             Category = 0,
                             ImageUrl = "/images/cakepop.jpg",
                             Name = "Cake Pop",
@@ -87,7 +91,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e12"),
                             Category = 0,
                             ImageUrl = "/images/appletart.jpg",
                             Name = "Apple tart",
@@ -96,7 +100,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 5,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e13"),
                             Category = 0,
                             ImageUrl = "/images/water.jpg",
                             Name = "Water",
@@ -105,7 +109,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 6,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e14"),
                             Category = 1,
                             ImageUrl = "/images/shirt.jpg",
                             Name = "Shirt",
@@ -114,7 +118,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e15"),
                             Category = 1,
                             ImageUrl = "/images/pants.jpg",
                             Name = "Pants",
@@ -123,7 +127,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 8,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e16"),
                             Category = 1,
                             ImageUrl = "/images/jacket.jpg",
                             Name = "Jacket",
@@ -132,7 +136,7 @@ namespace CharitySale.Api.Migrations
                         },
                         new
                         {
-                            Id = 9,
+                            Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e17"),
                             Category = 1,
                             ImageUrl = "/images/toy.jpg",
                             Name = "Toy",
@@ -143,11 +147,10 @@ namespace CharitySale.Api.Migrations
 
             modelBuilder.Entity("CharitySale.Api.Entities.Sale", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("timestamp with time zone");
@@ -158,25 +161,27 @@ namespace CharitySale.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sales");
+                    b.ToTable("Sales", t =>
+                        {
+                            t.HasCheckConstraint("CK_Sale_TotalAmount_NonNegative", "\"TotalAmount\" >= 0");
+                        });
                 });
 
             modelBuilder.Entity("CharitySale.Api.Entities.SaleItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("uuid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SaleId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("SaleId")
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("UnitPrice")
                         .HasPrecision(18, 2)
@@ -188,7 +193,12 @@ namespace CharitySale.Api.Migrations
 
                     b.HasIndex("SaleId");
 
-                    b.ToTable("SaleItems");
+                    b.ToTable("SaleItems", t =>
+                        {
+                            t.HasCheckConstraint("CK_SaleItem_Quantity_Positive", "\"Quantity\" > 0");
+
+                            t.HasCheckConstraint("CK_SaleItem_UnitPrice_NonNegative", "\"UnitPrice\" >= 0");
+                        });
                 });
 
             modelBuilder.Entity("CharitySale.Api.Entities.SaleItem", b =>

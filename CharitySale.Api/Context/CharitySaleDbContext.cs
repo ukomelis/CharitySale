@@ -13,47 +13,55 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.HasPostgresExtension("uuid-ossp");
 
         modelBuilder.Entity<Item>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id)
+                .HasColumnType("uuid")
+                .HasDefaultValueSql("gen_random_uuid()");
+
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Quantity).IsRequired();
             entity.Property(e => e.Price).IsRequired().HasPrecision(18, 2);
-            entity.Property(e => e.Category).IsRequired().HasMaxLength(10);
+            entity.Property(e => e.Category).IsRequired().HasConversion<int>();
             entity.Property(e => e.ImageUrl).HasMaxLength(100);
             
-            // Add check constraint for non-negative quantity
-            entity.ToTable(t => t.HasCheckConstraint("CK_Item_Quantity_NonNegative", "[Quantity] >= 0"));
-        
-            // Add check constraint for positive price
-            entity.ToTable(t => t.HasCheckConstraint("CK_Item_Price_Positive", "[Price] >= 0"));
+            // Add constraints
+            entity.ToTable(t => t.HasCheckConstraint("CK_Item_Quantity_NonNegative", "\"Quantity\" >= 0"));
+            entity.ToTable(t => t.HasCheckConstraint("CK_Item_Price_Positive", "\"Price\" >= 0"));
+
         });
 
         modelBuilder.Entity<Sale>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id)
+                .HasColumnType("uuid")
+                .HasDefaultValueSql("gen_random_uuid()");
+            
             entity.Property(e => e.SaleDate).IsRequired();
             entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
             
-            // Add check constraint for non-negative total amount
-            entity.ToTable(t => t.HasCheckConstraint("CK_Sale_TotalAmount_NonNegative", "[TotalAmount] >= 0"));
-
+            // Add constraint
+            entity.ToTable(t => t.HasCheckConstraint("CK_Sale_TotalAmount_NonNegative", "\"TotalAmount\" >= 0"));
         });
 
         modelBuilder.Entity<SaleItem>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Id)
+                .HasColumnType("uuid")
+                .HasDefaultValueSql("gen_random_uuid()");
+            
             entity.Property(e => e.Quantity).IsRequired();
             entity.Property(e => e.UnitPrice).HasPrecision(18, 2);
             
-            // Add check constraints
-            entity.ToTable(t => t.HasCheckConstraint("CK_SaleItem_Quantity_Positive", "[Quantity] > 0"));
-            entity.ToTable(t => t.HasCheckConstraint("CK_SaleItem_UnitPrice_NonNegative", "[UnitPrice] >= 0"));
-
+            // Add constraints
+            entity.ToTable(t => t.HasCheckConstraint("CK_SaleItem_Quantity_Positive", "\"Quantity\" > 0"));
+            entity.ToTable(t => t.HasCheckConstraint("CK_SaleItem_UnitPrice_NonNegative", "\"UnitPrice\" >= 0"));
 
             entity.HasOne(si => si.Sale)
                 .WithMany(s => s.SaleItems)
