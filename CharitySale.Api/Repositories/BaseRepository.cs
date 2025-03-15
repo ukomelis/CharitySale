@@ -19,7 +19,7 @@ public class BaseRepository<T>(CharitySaleDbContext context) : IRepository<T>
         return await _dbSet.Where(predicate).ToListAsync();
     }
 
-    public virtual async Task<T?> GetByIdAsync(int id)
+    public virtual async Task<T?> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
     }
