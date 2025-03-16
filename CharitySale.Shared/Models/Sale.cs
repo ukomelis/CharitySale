@@ -21,7 +21,11 @@ public class CreateSale : BaseSale
 public class Sale : BaseSale
 {
     public Guid Id { get; set; }
+    public DateTime SaleDate { get; set; }
     public decimal TotalAmount { get; set; }
+    public decimal AmountPaid { get; set; }
+    public decimal ChangeAmount { get; set; }
     public List<SaleItem> Items { get; set; } = [];
     public List<Change> Change { get; set; } = [];
+
 }

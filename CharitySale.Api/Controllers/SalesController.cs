@@ -41,6 +41,11 @@ public class SalesController(ISaleService saleService, ILogger<SalesController> 
             }
 
             var sale = mapper.Map<Sale>(result.Value);
+            var changeAmount = request.AmountPaid - sale.TotalAmount;
+            
+            sale.ChangeAmount = changeAmount;
+            sale.Change = saleService.CalculateChangeDenominations(changeAmount);
+            
             return CreatedAtAction(nameof(GetSale), new { id = sale.Id }, sale);
         }
         catch (Exception ex)
