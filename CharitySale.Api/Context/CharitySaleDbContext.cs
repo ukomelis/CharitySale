@@ -1,5 +1,5 @@
 ﻿using CharitySale.Api.Entities;
-using CharitySale.Api.Models.Enums;
+using CharitySale.Shared.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace CharitySale.Api.Context;

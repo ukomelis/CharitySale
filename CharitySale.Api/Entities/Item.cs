@@ -1,4 +1,4 @@
-﻿using CharitySale.Api.Models.Enums;
+﻿using CharitySale.Shared.Models.Enums;
 
 namespace CharitySale.Api.Entities;
 

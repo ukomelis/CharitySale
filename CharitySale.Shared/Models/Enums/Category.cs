@@ -1,4 +1,4 @@
-namespace CharitySale.Api.Models.Enums;
+namespace CharitySale.Shared.Models.Enums;
 
 public enum Category
 {

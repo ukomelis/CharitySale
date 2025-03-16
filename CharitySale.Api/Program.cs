@@ -1,11 +1,7 @@
-using System;
 using CharitySale.Api.Context;
 using CharitySale.Api.Repositories;
-using Microsoft.AspNetCore.Builder;
+using CharitySale.Api.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace CharitySale.Api;
 
@@ -29,6 +25,14 @@ public class Program
         builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
         builder.Services.AddScoped<IItemRepository, ItemRepository>();
         builder.Services.AddScoped<ISaleRepository, SaleRepository>();
+        
+        //Register services
+        builder.Services.AddScoped<IItemService, ItemService>();
+        builder.Services.AddScoped<ISaleService, SaleService>();
+        
+        // Register AutoMapper
+        builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
         var app = builder.Build();
         app.UseSwagger();
