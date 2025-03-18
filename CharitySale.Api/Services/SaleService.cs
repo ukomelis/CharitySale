@@ -5,12 +5,7 @@ using CharitySale.Shared.Models;
 
 namespace CharitySale.Api.Services;
 
-public class SaleService(
-    ISaleRepository saleRepository,
-    IItemRepository itemRepository,
-    IMapper mapper,
-    ILogger<SaleService> logger)
-    : ISaleService
+public class SaleService(ISaleRepository saleRepository, IItemRepository itemRepository, IMapper mapper, ILogger<SaleService> logger) : ISaleService
 {
     public async Task<Result<Sale>> CreateSaleAsync(CreateSale request)
     {
@@ -31,7 +26,6 @@ public class SaleService(
         // Create sale entity
         var saleEntity = new Entities.Sale
         {
-            SaleDate = request.SaleDate == default ? DateTime.UtcNow : request.SaleDate,
             TotalAmount = totalAmount
         };
 
@@ -98,7 +92,6 @@ public class SaleService(
         }
     }
 
-
     public async Task<Result<Sale>> GetSaleByIdAsync(Guid id)
     {
         try
@@ -119,7 +112,6 @@ public class SaleService(
             return Result<Sale>.Failure("Failed to retrieve sale");
         }
     }
-
 
     public List<Change> CalculateChangeDenominations(decimal amount)
     {

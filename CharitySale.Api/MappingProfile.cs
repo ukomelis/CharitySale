@@ -11,7 +11,8 @@ namespace CharitySale.Api
         public MappingProfile()
         {
             // Entity -> Shared Model mappings
-            CreateMap<Item, Shared.Models.Item>();
+            CreateMap<Item, Shared.Models.Item>()
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => (Shared.Models.Enums.Category)src.CategoryId));
 
             CreateMap<Sale, Shared.Models.Sale>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.SaleItems))

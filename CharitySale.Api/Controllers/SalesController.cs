@@ -37,7 +37,7 @@ public class SalesController(ISaleService saleService, ILogger<SalesController> 
                 }
 
                 logger.LogError("Failed to create sale: {Error}", result.Error);
-                return StatusCode(500, "An error occurred while processing the sale.");
+                return StatusCode(500, $"An error occurred while processing the sale. {result.Error}");
             }
 
             var sale = mapper.Map<Sale>(result.Value);

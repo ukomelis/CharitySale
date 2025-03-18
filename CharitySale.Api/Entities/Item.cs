@@ -1,6 +1,4 @@
-﻿using CharitySale.Shared.Models.Enums;
-
-namespace CharitySale.Api.Entities;
+﻿namespace CharitySale.Api.Entities;
 
 public class Item
 {
@@ -9,7 +7,10 @@ public class Item
     public decimal Price { get; set; }
     public int Quantity { get; set; }
     public string? ImageUrl { get; set; }
+    public int CategoryId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    
     public Category Category { get; set; }
-
     public ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
 }

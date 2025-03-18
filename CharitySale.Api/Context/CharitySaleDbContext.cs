@@ -1,6 +1,8 @@
 ﻿using CharitySale.Api.Entities;
 using CharitySale.Shared.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Category = CharitySale.Api.Entities.Category;
 
 namespace CharitySale.Api.Context;
 
@@ -9,12 +11,46 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
     public DbSet<Item> Items { get; set; }
     public DbSet<Sale> Sales { get; set; }
     public DbSet<SaleItem> SaleItems { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        
+        base.OnModelCreating(modelBuilder);        
         modelBuilder.HasPostgresExtension("uuid-ossp");
+        
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            if (entityType.ClrType.GetProperty("CreatedAt") != null)
+            {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property("CreatedAt")
+                    .HasDefaultValueSql("now()");
+            }
+            
+            if (entityType.ClrType.GetProperty("UpdatedAt") != null)
+            {
+                modelBuilder.Entity(entityType.ClrType)
+                    .Property("UpdatedAt")
+                    .HasDefaultValueSql("now()");
+                
+                //Could add a Postgres trigger to run the UpdatedAt automatically on change
+                // modelBuilder.Entity(entityType.ClrType)
+                //     .ToTable(tb => tb.HasTrigger("update_trigger_" + entityType.GetTableName()));
+
+            }
+        }
+        
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+        });
+
 
         modelBuilder.Entity<Item>(entity =>
         {
@@ -26,8 +62,13 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Quantity).IsRequired();
             entity.Property(e => e.Price).IsRequired().HasPrecision(18, 2);
-            entity.Property(e => e.Category).IsRequired().HasConversion<int>();
+            entity.Property(e => e.CategoryId).IsRequired();
             entity.Property(e => e.ImageUrl).HasMaxLength(100);
+            
+            entity.HasOne(i => i.Category)
+                .WithMany(c => c.Items)
+                .HasForeignKey(i => i.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
             
             // Add constraints
             entity.ToTable(t => t.HasCheckConstraint("CK_Item_Quantity_NonNegative", "\"Quantity\" >= 0"));
@@ -42,7 +83,6 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 .HasColumnType("uuid")
                 .HasDefaultValueSql("gen_random_uuid()");
             
-            entity.Property(e => e.SaleDate).IsRequired();
             entity.Property(e => e.TotalAmount).HasPrecision(18, 2);
             
             // Add constraint
@@ -80,6 +120,25 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
 
     private static void SeedData(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>().HasData(
+            new Category
+            {
+                Id = 1,
+                Name = "Food and beverages"
+            },
+            new Category
+            {
+                Id = 2,
+                Name = "Clothing"
+            },
+            new Category
+            {
+                Id = 3,
+                Name = "Other"
+            }
+        );
+
+        
         modelBuilder.Entity<Item>().HasData(
             new Item 
             { 
@@ -87,7 +146,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Brownie", 
                 Price = 0.65m, 
                 Quantity = 48, 
-                Category = Category.Food, 
+                CategoryId = 1, 
                 ImageUrl = "/images/brownie.jpg" 
             },
             new Item 
@@ -96,7 +155,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Muffin", 
                 Price = 1.00m, 
                 Quantity = 36, 
-                Category = Category.Food, 
+                CategoryId = 1, 
                 ImageUrl = "/images/muffin.jpg" 
             },
             new Item 
@@ -105,7 +164,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Cake Pop", 
                 Price = 1.35m, 
                 Quantity = 24, 
-                Category = Category.Food, 
+                CategoryId = 1, 
                 ImageUrl = "/images/cakepop.jpg" 
             },
             new Item 
@@ -114,7 +173,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Apple tart", 
                 Price = 1.50m, 
                 Quantity = 60, 
-                Category = Category.Food, 
+                CategoryId = 1, 
                 ImageUrl = "/images/appletart.jpg" 
             },
             new Item 
@@ -123,7 +182,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Water", 
                 Price = 1.50m, 
                 Quantity = 30, 
-                Category = Category.Food, 
+                CategoryId = 1, 
                 ImageUrl = "/images/water.jpg" 
             },
             new Item 
@@ -132,7 +191,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Shirt", 
                 Price = 2.00m, 
                 Quantity = 0, 
-                Category = Category.Other, 
+                CategoryId = 2, 
                 ImageUrl = "/images/shirt.jpg" 
             },
             new Item 
@@ -141,7 +200,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Pants", 
                 Price = 3.00m, 
                 Quantity = 0, 
-                Category = Category.Other, 
+                CategoryId = 2, 
                 ImageUrl = "/images/pants.jpg" 
             },
             new Item 
@@ -150,7 +209,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Jacket", 
                 Price = 4.00m, 
                 Quantity = 0, 
-                Category = Category.Other, 
+                CategoryId = 2, 
                 ImageUrl = "/images/jacket.jpg" 
             },
             new Item 
@@ -159,7 +218,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Name = "Toy", 
                 Price = 1.00m, 
                 Quantity = 0, 
-                Category = Category.Other, 
+                CategoryId = 3,
                 ImageUrl = "/images/toy.jpg" 
             }
         );

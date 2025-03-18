@@ -2,12 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CharitySale.Shared.Models;
 
-public class BaseSale
-{
-    public DateTime SaleDate { get; set; }
-}
-
-public class CreateSale : BaseSale
+public class CreateSale
 {
     [Required(ErrorMessage = "At least one item is required for a sale")]
     [MinLength(1, ErrorMessage = "At least one item is required for a sale")]
@@ -18,10 +13,11 @@ public class CreateSale : BaseSale
     public decimal AmountPaid { get; set; }
 }
 
-public class Sale : BaseSale
+public class Sale
 {
     public Guid Id { get; set; }
-    public DateTime SaleDate { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
     public decimal TotalAmount { get; set; }
     public decimal AmountPaid { get; set; }
     public decimal ChangeAmount { get; set; }

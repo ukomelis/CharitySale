@@ -7,7 +7,7 @@ namespace CharitySale.Api;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         
@@ -51,22 +51,9 @@ public class Program
 
         app.MapControllers();
         
-        // Apply migrations at startup
-        using (var scope = app.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
-            try
-            {
-                var context = services.GetRequiredService<CharitySaleDbContext>();
-                context.Database.Migrate();
-            }
-            catch (Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred while migrating the database.");
-            }
-        }
+        //Apply DB migrations and seed data
+        await DatabaseInitializer.InitializeAsync(app.Services);
 
-        app.Run();
+        await app.RunAsync();
     }
 }

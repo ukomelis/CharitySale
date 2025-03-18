@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CharitySale.Api.Migrations
 {
     [DbContext(typeof(CharitySaleDbContext))]
-    [Migration("20250315112056_InitialCreate")]
+    [Migration("20250318161336_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -26,6 +26,41 @@ namespace CharitySale.Api.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("CharitySale.Api.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Food and beverages"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Clothing"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Other"
+                        });
+                });
+
             modelBuilder.Entity("CharitySale.Api.Entities.Item", b =>
                 {
                     b.Property<Guid>("Id")
@@ -33,8 +68,13 @@ namespace CharitySale.Api.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<int>("Category")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(100)
@@ -52,7 +92,14 @@ namespace CharitySale.Api.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Items", t =>
                         {
@@ -65,83 +112,101 @@ namespace CharitySale.Api.Migrations
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e9f"),
-                            Category = 0,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/brownie.jpg",
                             Name = "Brownie",
                             Price = 0.65m,
-                            Quantity = 48
+                            Quantity = 48,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e10"),
-                            Category = 0,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/muffin.jpg",
                             Name = "Muffin",
                             Price = 1.00m,
-                            Quantity = 36
+                            Quantity = 36,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e11"),
-                            Category = 0,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/cakepop.jpg",
                             Name = "Cake Pop",
                             Price = 1.35m,
-                            Quantity = 24
+                            Quantity = 24,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e12"),
-                            Category = 0,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/appletart.jpg",
                             Name = "Apple tart",
                             Price = 1.50m,
-                            Quantity = 60
+                            Quantity = 60,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e13"),
-                            Category = 0,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/water.jpg",
                             Name = "Water",
                             Price = 1.50m,
-                            Quantity = 30
+                            Quantity = 30,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e14"),
-                            Category = 1,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/shirt.jpg",
                             Name = "Shirt",
                             Price = 2.00m,
-                            Quantity = 0
+                            Quantity = 0,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e15"),
-                            Category = 1,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/pants.jpg",
                             Name = "Pants",
                             Price = 3.00m,
-                            Quantity = 0
+                            Quantity = 0,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e16"),
-                            Category = 1,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/jacket.jpg",
                             Name = "Jacket",
                             Price = 4.00m,
-                            Quantity = 0
+                            Quantity = 0,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e17"),
-                            Category = 1,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "/images/toy.jpg",
                             Name = "Toy",
                             Price = 1.00m,
-                            Quantity = 0
+                            Quantity = 0,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -152,12 +217,25 @@ namespace CharitySale.Api.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<DateTime>("SaleDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("ChangeAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<decimal>("TotalAmount")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
 
                     b.HasKey("Id");
 
@@ -174,6 +252,11 @@ namespace CharitySale.Api.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uuid");
 
@@ -187,6 +270,11 @@ namespace CharitySale.Api.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("now()");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ItemId");
@@ -199,6 +287,17 @@ namespace CharitySale.Api.Migrations
 
                             t.HasCheckConstraint("CK_SaleItem_UnitPrice_NonNegative", "\"UnitPrice\" >= 0");
                         });
+                });
+
+            modelBuilder.Entity("CharitySale.Api.Entities.Item", b =>
+                {
+                    b.HasOne("CharitySale.Api.Entities.Category", "Category")
+                        .WithMany("Items")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("CharitySale.Api.Entities.SaleItem", b =>
@@ -218,6 +317,11 @@ namespace CharitySale.Api.Migrations
                     b.Navigation("Item");
 
                     b.Navigation("Sale");
+                });
+
+            modelBuilder.Entity("CharitySale.Api.Entities.Category", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("CharitySale.Api.Entities.Item", b =>
