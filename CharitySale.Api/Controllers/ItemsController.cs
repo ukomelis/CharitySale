@@ -73,7 +73,7 @@ public class ItemsController(IItemService itemService, ILogger<ItemsController> 
     {
         try
         {
-            var result = await itemService.UpdateItemQuantityAsync(id, request.Quantity);
+            var result = await itemService.SetItemStockAsync(id, request.Quantity);
             if (!result.IsSuccess)
             {
                 if (result.Error?.Contains("not found", StringComparison.OrdinalIgnoreCase) == true)

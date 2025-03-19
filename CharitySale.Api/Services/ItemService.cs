@@ -66,7 +66,7 @@ public class ItemService(IItemRepository itemRepository, ILogger<ItemService> lo
         }
     }
 
-    public async Task<Result<Item>> UpdateItemQuantityAsync(Guid id, int quantity)
+    public async Task<Result<Item>> SetItemStockAsync(Guid id, int quantity)
     {
         return await UpdateItemQuantityInternalAsync(id, quantity, true);
     }
@@ -99,7 +99,8 @@ public class ItemService(IItemRepository itemRepository, ILogger<ItemService> lo
                 }
                 item.Quantity = newQuantity;
             }
-
+            
+            item.UpdatedAt = DateTime.Now;
             itemRepository.Update(item);
             var saved = await itemRepository.SaveChangesAsync();
 

@@ -1,4 +1,5 @@
 using CharitySale.Web.Components;
+using CharitySale.Web.Services;
 
 namespace CharitySale.Web;
 
@@ -11,6 +12,15 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
+        
+        builder.Services.AddHttpClient("CharitySaleApi", client =>
+        {
+            client.BaseAddress = new Uri("http://localhost:8080/"); //TODO: Move to configuration
+        });
+        
+        // Add services
+        builder.Services.AddScoped<IItemService, ItemService>();
+        builder.Services.AddScoped<ISaleService, SaleService>();
 
         var app = builder.Build();
 

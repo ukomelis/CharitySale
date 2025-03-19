@@ -1,0 +1,168 @@
+@page "/items"
+@using CharitySale.Web.Services
+@using CharitySale.Shared.Models
+@using CharitySale.Shared.Models.Enums
+@using Microsoft.JSInterop
+@inject IItemService ItemService
+@inject IJSRuntime JSRuntime
+
+<h1>Items Management</h1>
+
+@if (_loading)
+{
+    <div class="loading">Loading items...</div>
+}
+else
+{
+    <div class="item-management">
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in _items)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Category</td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>
+                            @if (_editingItemId == item.Id)
+                            {
+                                <input type="number" @bind="_editingQuantity" min="0" max="1000" />
+                            }
+                            else
+                            {
+                                @item.Quantity
+                            }
+                        </td>
+                        <td>
+                            @if (_editingItemId == item.Id)
+                            {
+                                <button @onclick="SaveQuantity" class="save-button">Save</button>
+                                <button @onclick="CancelEditing" class="cancel-button">Cancel</button>
+                            }
+                            else
+                            {
+                                <button @onclick="() => EditItem(item)" class="edit-button">Edit</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<Item> _items = new();
+    private bool _loading = true;
+    private Guid _editingItemId = Guid.Empty;
+    private int _editingQuantity;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _items = await ItemService.GetAllItemsAsync();
+            _loading = false;
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Error loading items: {ex.Message}");
+        }
+    }
+    
+    private void EditItem(Item item)
+    {
+        _editingItemId = item.Id;
+        _editingQuantity = item.Quantity;
+    }
+    
+    private async Task SaveQuantity()
+    {
+        try
+        {
+            var item = await ItemService.UpdateItemQuantityAsync(_editingItemId, _editingQuantity);
+            var itemToUpdate = _items.FirstOrDefault(i => i.Id == _editingItemId);
+            if (itemToUpdate != null)
+            {
+                itemToUpdate.Quantity = item.Quantity;
+            }
+            _editingItemId = Guid.Empty;
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Error updating quantity: {ex.Message}");
+        }
+    }
+    
+    private void CancelEditing()
+    {
+        _editingItemId = Guid.Empty;
+    }
+}
+
+<style>
+    .item-management {
+        margin-top: 2rem;
+    }
+    
+    .items-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .items-table th,
+    .items-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .items-table th {
+        background-color: #f5f5f5;
+    }
+    
+    .edit-button {
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .save-button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .cancel-button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+    
+    .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        font-size: 1.2rem;
+    }
+</style>
