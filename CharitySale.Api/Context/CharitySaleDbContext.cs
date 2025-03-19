@@ -147,7 +147,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 0.65m, 
                 Quantity = 48, 
                 CategoryId = 1, 
-                ImageUrl = "/images/brownie.jpg" 
+                ImageUrl = "/images/brownie.png" 
             },
             new Item 
             { 
@@ -156,7 +156,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 1.00m, 
                 Quantity = 36, 
                 CategoryId = 1, 
-                ImageUrl = "/images/muffin.jpg" 
+                ImageUrl = "/images/muffin.png" 
             },
             new Item 
             { 
@@ -165,7 +165,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 1.35m, 
                 Quantity = 24, 
                 CategoryId = 1, 
-                ImageUrl = "/images/cakepop.jpg" 
+                ImageUrl = "/images/cake-pop.png" 
             },
             new Item 
             { 
@@ -174,7 +174,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 1.50m, 
                 Quantity = 60, 
                 CategoryId = 1, 
-                ImageUrl = "/images/appletart.jpg" 
+                ImageUrl = "/images/pie-cake.png" 
             },
             new Item 
             { 
@@ -183,7 +183,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 1.50m, 
                 Quantity = 30, 
                 CategoryId = 1, 
-                ImageUrl = "/images/water.jpg" 
+                ImageUrl = "/images/water.png" 
             },
             new Item 
             { 
@@ -192,7 +192,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 2.00m, 
                 Quantity = 0, 
                 CategoryId = 2, 
-                ImageUrl = "/images/shirt.jpg" 
+                ImageUrl = "/images/tshirt.png" 
             },
             new Item 
             { 
@@ -201,7 +201,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 3.00m, 
                 Quantity = 0, 
                 CategoryId = 2, 
-                ImageUrl = "/images/pants.jpg" 
+                ImageUrl = "/images/pants.png" 
             },
             new Item 
             { 
@@ -210,7 +210,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 4.00m, 
                 Quantity = 0, 
                 CategoryId = 2, 
-                ImageUrl = "/images/jacket.jpg" 
+                ImageUrl = "/images/jacket.png" 
             },
             new Item 
             { 
@@ -219,7 +219,7 @@ public class CharitySaleDbContext(DbContextOptions<CharitySaleDbContext> options
                 Price = 1.00m, 
                 Quantity = 0, 
                 CategoryId = 3,
-                ImageUrl = "/images/toy.jpg" 
+                ImageUrl = "/images/toys.png" 
             }
         );
     }

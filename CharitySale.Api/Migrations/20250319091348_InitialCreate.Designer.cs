@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CharitySale.Api.Migrations
 {
     [DbContext(typeof(CharitySaleDbContext))]
-    [Migration("20250318161336_InitialCreate")]
+    [Migration("20250319091348_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -114,7 +114,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e9f"),
                             CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/brownie.jpg",
+                            ImageUrl = "/images/brownie.png",
                             Name = "Brownie",
                             Price = 0.65m,
                             Quantity = 48,
@@ -125,7 +125,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e10"),
                             CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/muffin.jpg",
+                            ImageUrl = "/images/muffin.png",
                             Name = "Muffin",
                             Price = 1.00m,
                             Quantity = 36,
@@ -136,7 +136,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e11"),
                             CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/cakepop.jpg",
+                            ImageUrl = "/images/cake-pop.png",
                             Name = "Cake Pop",
                             Price = 1.35m,
                             Quantity = 24,
@@ -147,7 +147,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e12"),
                             CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/appletart.jpg",
+                            ImageUrl = "/images/pie-cake.png",
                             Name = "Apple tart",
                             Price = 1.50m,
                             Quantity = 60,
@@ -158,7 +158,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e13"),
                             CategoryId = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/water.jpg",
+                            ImageUrl = "/images/water.png",
                             Name = "Water",
                             Price = 1.50m,
                             Quantity = 30,
@@ -169,7 +169,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e14"),
                             CategoryId = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/shirt.jpg",
+                            ImageUrl = "/images/tshirt.png",
                             Name = "Shirt",
                             Price = 2.00m,
                             Quantity = 0,
@@ -180,7 +180,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e15"),
                             CategoryId = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/pants.jpg",
+                            ImageUrl = "/images/pants.png",
                             Name = "Pants",
                             Price = 3.00m,
                             Quantity = 0,
@@ -191,7 +191,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e16"),
                             CategoryId = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/jacket.jpg",
+                            ImageUrl = "/images/jacket.png",
                             Name = "Jacket",
                             Price = 4.00m,
                             Quantity = 0,
@@ -202,7 +202,7 @@ namespace CharitySale.Api.Migrations
                             Id = new Guid("81a130d2-502f-4cf1-a376-63edeb000e17"),
                             CategoryId = 3,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "/images/toy.jpg",
+                            ImageUrl = "/images/toys.png",
                             Name = "Toy",
                             Price = 1.00m,
                             Quantity = 0,

@@ -119,15 +119,15 @@ namespace CharitySale.Api.Migrations
                 columns: new[] { "Id", "CategoryId", "ImageUrl", "Name", "Price", "Quantity" },
                 values: new object[,]
                 {
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e10"), 1, "/images/muffin.jpg", "Muffin", 1.00m, 36 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e11"), 1, "/images/cakepop.jpg", "Cake Pop", 1.35m, 24 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e12"), 1, "/images/appletart.jpg", "Apple tart", 1.50m, 60 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e13"), 1, "/images/water.jpg", "Water", 1.50m, 30 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e14"), 2, "/images/shirt.jpg", "Shirt", 2.00m, 0 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e15"), 2, "/images/pants.jpg", "Pants", 3.00m, 0 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e16"), 2, "/images/jacket.jpg", "Jacket", 4.00m, 0 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e17"), 3, "/images/toy.jpg", "Toy", 1.00m, 0 },
-                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e9f"), 1, "/images/brownie.jpg", "Brownie", 0.65m, 48 }
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e10"), 1, "/images/muffin.png", "Muffin", 1.00m, 36 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e11"), 1, "/images/cake-pop.png", "Cake Pop", 1.35m, 24 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e12"), 1, "/images/pie-cake.png", "Apple tart", 1.50m, 60 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e13"), 1, "/images/water.png", "Water", 1.50m, 30 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e14"), 2, "/images/tshirt.png", "Shirt", 2.00m, 0 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e15"), 2, "/images/pants.png", "Pants", 3.00m, 0 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e16"), 2, "/images/jacket.png", "Jacket", 4.00m, 0 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e17"), 3, "/images/toys.png", "Toy", 1.00m, 0 },
+                    { new Guid("81a130d2-502f-4cf1-a376-63edeb000e9f"), 1, "/images/brownie.png", "Brownie", 0.65m, 48 }
                 });
 
             migrationBuilder.CreateIndex(
