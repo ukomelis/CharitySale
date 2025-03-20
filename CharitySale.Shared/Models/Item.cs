@@ -27,6 +27,6 @@ public class CreateItem : BaseItem
 public class UpdateItemQuantity
 {
     [Required]
-    [Range(0, 1000, ErrorMessage = "Quantity must be between 0 and 1000")]
+    [Range(0, int.MaxValue, ErrorMessage = "Quantity must be between 0 and 1000")]
     public int Quantity { get; set; }
 }

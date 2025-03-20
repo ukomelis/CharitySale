@@ -10,9 +10,9 @@ const ItemCard = ({ item, onItemSelect, isOutOfStock, categoryColor, compact = f
   };
   
   // Format price with 2 decimal places
-  const formattedPrice = new Intl.NumberFormat('en-US', {
+  const formattedPrice = new Intl.NumberFormat('en-ET', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'EUR'
   }).format(item.price);
   
   return (
