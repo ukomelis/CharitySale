@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharitySale.Tests", "Charit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharitySale.Api", "CharitySale.Api\CharitySale.Api.csproj", "{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharitySale.Web", "CharitySale.Web\CharitySale.Web.csproj", "{6D6FBEBA-BA84-41E7-8795-E2AF8D1EA54F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharitySale.Shared", "CharitySale.Shared\CharitySale.Shared.csproj", "{101DE62D-CFA4-46B0-A5A7-B8E05C54158B}"
 EndProject
 Global
@@ -22,10 +20,6 @@ Global
 		{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFEACE82-6CFF-4204-899F-68B72CB0AE3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D6FBEBA-BA84-41E7-8795-E2AF8D1EA54F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D6FBEBA-BA84-41E7-8795-E2AF8D1EA54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D6FBEBA-BA84-41E7-8795-E2AF8D1EA54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D6FBEBA-BA84-41E7-8795-E2AF8D1EA54F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{101DE62D-CFA4-46B0-A5A7-B8E05C54158B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{101DE62D-CFA4-46B0-A5A7-B8E05C54158B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{101DE62D-CFA4-46B0-A5A7-B8E05C54158B}.Release|Any CPU.ActiveCfg = Release|Any CPU
