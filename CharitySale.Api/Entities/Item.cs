@@ -11,6 +11,6 @@ public class Item
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     
-    public Category Category { get; set; }
+    public Category Category { get; set; } = null!;
     public ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
 }
