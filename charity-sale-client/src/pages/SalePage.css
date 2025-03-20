@@ -1,0 +1,310 @@
+/* SalePage.css */
+/* Space-optimized modern design */
+
+.sale-page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 10px 80px; /* Reduced padding */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  .sale-page-header {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 0.8rem 1rem; /* Reduced padding */
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 1rem; /* Reduced margin */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  
+  .header-content h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.8rem; /* Reduced font size */
+  }
+  
+  .search-container {
+    position: relative;
+    width: 300px;
+    max-width: 100%;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 8px 12px 8px 35px; /* Reduced padding */
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  
+  .alert-container {
+    margin-bottom: 1rem;
+  }
+  
+  .alert-error {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border-left: 4px solid #c62828;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    color: #666;
+  }
+  
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #6a11cb;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 0.8rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .sale-page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Reduced gap */
+  }
+  
+  .category-section {
+    border-radius: 10px;
+    border-left: 5px solid;
+    padding: 0.8rem; /* Reduced padding */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+  }
+  
+  .category-section:hover {
+    transform: translateY(-2px);
+  }
+  
+  .category-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem; /* Reduced margin */
+    gap: 8px;
+  }
+  
+  .category-icon {
+    font-size: 1.5rem; /* Reduced size */
+    margin-right: 0.3rem;
+  }
+  
+  .category-header h2 {
+    margin: 0;
+    font-size: 1.3rem; /* Reduced font size */
+    font-weight: 600;
+  }
+  
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Smaller card width */
+    gap: 0.8rem; /* Reduced gap */
+  }
+  
+  .no-items-message {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-size: 1.1rem;
+  }
+  
+  .no-items-message i {
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+    color: #ccc;
+  }
+  
+  /* Media queries for responsive design */
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .search-container {
+      width: 100%;
+    }
+    
+    .items-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sale-page-header {
+      padding: 0.8rem;
+    }
+    
+    .header-content h1 {
+      font-size: 1.5rem;
+    }
+    
+    .category-header h2 {
+      font-size: 1.2rem;
+    }
+    
+    .items-grid {
+      grid-template-columns: repeat(2, 1fr); /* Two columns for mobile */
+    }
+  }
+  
+  /* For larger screens, use more columns */
+  @media (min-width: 1200px) {
+    .items-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Even more compact */
+    }
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .view-toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  
+  .view-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .view-toggle-btn.compact-active {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  
+  .item-count {
+    font-size: 0.8rem;
+    color: #666;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-left: auto;
+  }
+  
+  /* Compact view specific styles */
+  .compact-view .category-section {
+    padding: 0.6rem;
+  }
+  
+  .compact-view .category-header {
+    margin-bottom: 0.6rem;
+  }
+  
+  .compact-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.6rem;
+  }
+  
+  @media (min-width: 1200px) {
+    .compact-grid {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .compact-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Add to SalePage.css */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .inventory-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  
+  .inventory-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+  
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .header-controls {
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    
+    .search-container {
+      order: 1;
+      flex: 1;
+    }
+    
+    .inventory-btn {
+      order: 2;
+    }
+    
+    .view-toggle-btn {
+      order: 3;
+    }
+  }
+  

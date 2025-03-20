@@ -17,6 +17,18 @@ public class Program
             o.UseNpgsql(builder.Configuration.GetConnectionString("CharitySaleDb")));
 
         builder.Services.AddControllers();
+        
+        // Add CORS policy
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowReactApp", b =>
+            {
+                b.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+        
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -50,6 +62,8 @@ public class Program
 
 
         app.MapControllers();
+        
+        app.UseCors("AllowReactApp");
         
         //Apply DB migrations and seed data
         await DatabaseInitializer.InitializeAsync(app.Services);

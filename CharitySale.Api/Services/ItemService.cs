@@ -100,7 +100,7 @@ public class ItemService(IItemRepository itemRepository, ILogger<ItemService> lo
                 item.Quantity = newQuantity;
             }
             
-            item.UpdatedAt = DateTime.Now;
+            item.UpdatedAt = DateTime.UtcNow;
             itemRepository.Update(item);
             var saved = await itemRepository.SaveChangesAsync();
 
