@@ -2,13 +2,15 @@ using AutoMapper;
 using CharitySale.Api.Services;
 using CharitySale.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace CharitySale.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class SalesController(ISaleService saleService, ILogger<SalesController> logger, IMapper mapper) : ControllerBase
+public class SalesController(ISaleService saleService,
+    ILogger<SalesController> logger, IMapper mapper, IHubContext<CharitySaleHub> hubContext) : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -45,6 +47,9 @@ public class SalesController(ISaleService saleService, ILogger<SalesController> 
             
             sale.ChangeAmount = changeAmount;
             sale.Change = saleService.CalculateChangeDenominations(changeAmount);
+            
+            // Notify connected clients about the new sale
+            await hubContext.Clients.All.SendAsync("SaleCreated", sale.Id);
             
             return CreatedAtAction(nameof(GetSale), new { id = sale.Id }, sale);
         }

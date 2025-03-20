@@ -44,7 +44,8 @@ public class Program
         
         // Register AutoMapper
         builder.Services.AddAutoMapper(typeof(MappingProfile));
-
+        
+        builder.Services.AddSignalR();
 
         var app = builder.Build();
         app.UseSwagger();
@@ -62,8 +63,8 @@ public class Program
 
 
         app.MapControllers();
-        
         app.UseCors("AllowReactApp");
+        app.MapHub<CharitySaleHub>("/charitySaleHub");
         
         //Apply DB migrations and seed data
         await DatabaseInitializer.InitializeAsync(app.Services);

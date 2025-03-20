@@ -2,13 +2,15 @@ using AutoMapper;
 using CharitySale.Api.Services;
 using CharitySale.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace CharitySale.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class ItemsController(IItemService itemService, ILogger<ItemsController> logger, IMapper mapper) : ControllerBase
+public class ItemsController(IItemService itemService,
+    ILogger<ItemsController> logger, IMapper mapper, IHubContext<CharitySaleHub> hubContext) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -86,6 +88,10 @@ public class ItemsController(IItemService itemService, ILogger<ItemsController> 
             }
 
             var updatedItem = mapper.Map<Item>(result.Value);
+            
+            // Notify all connected clients about the quantity update
+            await hubContext.Clients.All.SendAsync("ItemQuantityUpdated", id, request.Quantity);
+
             return Ok(updatedItem);
         }
         catch (Exception ex)
