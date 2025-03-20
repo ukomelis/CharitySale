@@ -1,6 +1,6 @@
 // pages/SalePage.jsx
-import React, { useState, useEffect } from 'react';
-import { getItems, createSale, updateItemQuantity } from '../api/apiClient';
+import React, {useEffect, useState} from 'react';
+import {createSale, getItems, updateItemQuantity} from '../api/apiClient';
 import ItemCard from '../components/ItemCard';
 import CheckoutModal from '../components/CheckoutModal';
 import FloatingCart from '../components/FloatingCart';
@@ -139,7 +139,7 @@ const SalePage = () => {
       // Send sale to API
       const response = await createSale(saleData);
       setCompletedSale(response);
-      
+
       // Update item quantities in the database
       for (const item of cart) {
         const stockItem = items.find(i => i.id === item.id);
@@ -147,13 +147,13 @@ const SalePage = () => {
           await updateItemQuantity(item.id, stockItem.quantity);
         }
       }
-      
+
       // Close checkout modal and show receipt
       setShowCheckout(false);
       setShowReceipt(true);
     } catch (err) {
-      setError('Failed to process sale. Please try again.');
-      console.error(err);
+      // Instead of setting error in SalePage
+      return err?.response?.data || err?.message || 'Failed to process sale. Please try again.'; // Return the error message to be handled by CheckoutModal
     }
   };
 
