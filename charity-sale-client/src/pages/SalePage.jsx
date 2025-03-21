@@ -6,21 +6,10 @@ import CheckoutModal from '../components/CheckoutModal';
 import FloatingCart from '../components/FloatingCart';
 import ReceiptModal from '../components/ReceiptModal';
 import InventoryAdjustmentModal from '../components/InventoryAdjustmentModal';
+import signalRService from '../services/signalRService';
+import { CATEGORY_MAPPING, CATEGORY_COLORS } from '../constants/constants';
+
 import './SalePage.css';
-
-// Category enum mapping (to match C# enum)
-const CATEGORY_MAPPING = {
-  1: "Food",
-  2: "Clothes", 
-  3: "Other"
-};
-
-// Category theme colors
-const CATEGORY_COLORS = {
-  1: { bg: '#e6f7ff', border: '#1890ff', icon: '🍽️' }, // Food - blue theme
-  2: { bg: '#f6ffed', border: '#52c41a', icon: '👕' }, // Clothes - green theme
-  3: { bg: '#fff7e6', border: '#fa8c16', icon: '🎁' }  // Other - orange theme
-};
 
 const SalePage = () => {
   const [items, setItems] = useState([]);
@@ -33,27 +22,42 @@ const SalePage = () => {
   const [showReceipt, setShowReceipt] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [compactView, setCompactView] = useState(false);
-  const [showInventoryModal, setShowInventoryModal] = useState(false); // New state for inventory modal
+  const [showInventoryModal, setShowInventoryModal] = useState(false);
 
   // Fetch items on component mount
   useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const data = await getItems();
-        setItems(data);
-        setLoading(false);
-        
-        // Show inventory adjustment modal automatically on first load
-        // Comment this line if you don't want it to show automatically
-        setShowInventoryModal(true);
-      } catch (err) {
-        setError('Failed to load items. Please refresh the page.');
-        setLoading(false);
-      }
-    };
-
     fetchItems();
+
+    // Show inventory adjustment modal automatically on first load
+    setShowInventoryModal(true);
   }, []);
+
+    // Set up SignalR event listeners
+    useEffect(() => {
+      // Listen for item quantity updates from other clients
+      const unsubscribeQuantity = signalRService.onItemQuantityUpdated((itemId, newQuantity) => {
+        setItems(prevItems => 
+          prevItems.map(item => 
+            item.id === itemId 
+              ? { ...item, quantity: newQuantity } 
+              : item
+          )
+        );
+      });
+      
+      // Listen for new sales created by other clients
+      const unsubscribeSale = signalRService.onSaleCreated((saleId) => {
+        //refresh the items to get updated inventory
+        fetchItems();
+      });
+      
+      // Clean up listeners when component unmounts
+      return () => {
+        unsubscribeQuantity();
+        unsubscribeSale();
+      };
+    }, []);
+  
 
   // Calculate total when cart changes
   useEffect(() => {
@@ -66,10 +70,10 @@ const SalePage = () => {
     // Check if item has enough stock
     const itemInStock = items.find(i => i.id === selectedItem.id);
     if (!itemInStock || itemInStock.quantity <= 0) {
-      return; // Item out of stock
+      return;
     }
 
-    // Update local items stock immediately for better UX
+    // Update local items stock immediately
     setItems(prevItems => 
       prevItems.map(item => 
         item.id === selectedItem.id 
@@ -91,6 +95,18 @@ const SalePage = () => {
         return [...prevCart, { ...selectedItem, quantity: 1 }];
       }
     });
+  };
+
+  const fetchItems = async () => {
+    try {
+      const data = await getItems();
+      setItems(data);
+      setLoading(false);
+
+    } catch (err) {
+      setError('Failed to load items. Please refresh the page.');
+      setLoading(false);
+    }
   };
 
   // Reset cart and completed sale
@@ -126,7 +142,6 @@ const SalePage = () => {
   // Handle payment confirmation
   const handleConfirmPayment = async (amountPaid) => {
     try {
-      // Prepare sale data
       const saleData = {
         items: cart.map(item => ({
           itemId: item.id,
@@ -139,14 +154,6 @@ const SalePage = () => {
       // Send sale to API
       const response = await createSale(saleData);
       setCompletedSale(response);
-
-      // Update item quantities in the database
-      for (const item of cart) {
-        const stockItem = items.find(i => i.id === item.id);
-        if (stockItem) {
-          await updateItemQuantity(item.id, stockItem.quantity);
-        }
-      }
 
       // Close checkout modal and show receipt
       setShowCheckout(false);

@@ -1,19 +1,18 @@
 /* SalePage.css */
-/* Space-optimized modern design */
 
 .sale-page-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 10px 80px; /* Reduced padding */
+    padding: 0 10px 80px;
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   
   .sale-page-header {
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     color: white;
-    padding: 0.8rem 1rem; /* Reduced padding */
+    padding: 0.8rem 1rem;
     border-radius: 0 0 10px 10px;
-    margin-bottom: 1rem; /* Reduced margin */
+    margin-bottom: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -31,7 +30,7 @@
   .header-content h1 {
     margin: 0;
     font-weight: 700;
-    font-size: 1.8rem; /* Reduced font size */
+    font-size: 1.8rem;
   }
   
   .search-container {
@@ -42,7 +41,7 @@
   
   .search-input {
     width: 100%;
-    padding: 8px 12px 8px 35px; /* Reduced padding */
+    padding: 8px 12px 8px 35px;
     border-radius: 20px;
     border: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -99,13 +98,13 @@
   .sale-page-content {
     display: flex;
     flex-direction: column;
-    gap: 1rem; /* Reduced gap */
+    gap: 1rem;
   }
   
   .category-section {
     border-radius: 10px;
     border-left: 5px solid;
-    padding: 0.8rem; /* Reduced padding */
+    padding: 0.8rem;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s;
   }
@@ -117,25 +116,25 @@
   .category-header {
     display: flex;
     align-items: center;
-    margin-bottom: 0.8rem; /* Reduced margin */
+    margin-bottom: 0.8rem;
     gap: 8px;
   }
   
   .category-icon {
-    font-size: 1.5rem; /* Reduced size */
+    font-size: 1.5rem; 
     margin-right: 0.3rem;
   }
   
   .category-header h2 {
     margin: 0;
-    font-size: 1.3rem; /* Reduced font size */
+    font-size: 1.3rem; 
     font-weight: 600;
   }
   
   .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Smaller card width */
-    gap: 0.8rem; /* Reduced gap */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.8rem; 
   }
   
   .no-items-message {
@@ -190,7 +189,7 @@
   /* For larger screens, use more columns */
   @media (min-width: 1200px) {
     .items-grid {
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Even more compact */
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     }
   }
 
@@ -257,7 +256,6 @@
     }
   }
 
-  /* Add to SalePage.css */
 .header-controls {
     display: flex;
     align-items: center;

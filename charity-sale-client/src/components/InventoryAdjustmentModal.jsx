@@ -1,6 +1,8 @@
 // components/InventoryAdjustmentModal.jsx
 import React, { useState, useEffect } from 'react';
 import './InventoryAdjustmentModal.css';
+import { CATEGORY_MAPPING } from '../constants/constants';
+
 
 const InventoryAdjustmentModal = ({ show, onClose, items, onSave }) => {
   const [adjustedItems, setAdjustedItems] = useState([]);
@@ -44,13 +46,6 @@ const InventoryAdjustmentModal = ({ show, onClose, items, onSave }) => {
     acc[categoryId].push(item);
     return acc;
   }, {});
-
-  // Map of category IDs to names
-  const CATEGORY_MAPPING = {
-    1: "Food",
-    2: "Clothes", 
-    3: "Other"
-  };
 
   if (!show) return null;
 

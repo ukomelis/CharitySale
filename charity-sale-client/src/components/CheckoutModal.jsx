@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CheckoutModal.css'; // Make sure to import the CSS
+import './CheckoutModal.css';
 
 const CheckoutModal = ({ show, onClose, totalAmount, onConfirmPayment }) => {
   const [amountPaid, setAmountPaid] = useState('');
@@ -21,8 +21,10 @@ const CheckoutModal = ({ show, onClose, totalAmount, onConfirmPayment }) => {
     if (errorResult) {
       // If onConfirmPayment returns an error message, display it
       setError(errorResult);
-      setIsProcessing(false);
     }
+
+    setIsProcessing(false);
+    setAmountPaid('')
   };
 
   if (!show) return null;
@@ -58,7 +60,7 @@ const CheckoutModal = ({ show, onClose, totalAmount, onConfirmPayment }) => {
               />
             </div>
 
-            {/* Display error message in a prominent way */}
+            {/* Display error message */}
             {error && (
                 <div className="error-message">
                   <span className="error-icon">⚠️</span>
