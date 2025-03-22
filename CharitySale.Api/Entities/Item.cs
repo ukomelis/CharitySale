@@ -1,4 +1,6 @@
-﻿namespace CharitySale.Api.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace CharitySale.Api.Entities;
 
 public class Item
 {
@@ -11,6 +13,8 @@ public class Item
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     
+    [JsonIgnore]
     public Category Category { get; set; } = null!;
+    [JsonIgnore]
     public ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
 }

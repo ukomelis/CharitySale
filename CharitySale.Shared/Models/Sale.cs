@@ -9,7 +9,7 @@ public class CreateSale
     public List<CreateSaleItem> Items { get; set; } = [];
     
     [Required(ErrorMessage = "Amount paid is required")]
-    [Range(0.01, double.MaxValue, ErrorMessage = "Amount paid must be greater than 0")]
+    [Range(typeof(decimal), "0.01", "1000000", ErrorMessage = "Amount paid must be greater than 0 and smaller than 1000000")]
     public decimal AmountPaid { get; set; }
 }
 

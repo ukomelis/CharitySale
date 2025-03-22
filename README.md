@@ -8,7 +8,6 @@ The application allows users to manage items for sale, process transactions, and
 ## Project Structure
 - **CharitySale.Api** - Backend ASP.NET Core API
 - **charity-sale-client** - React frontend application
-- **CharitySale.Shared** - Shared models and resources
 
 ## Technologies Used
 ### Backend
@@ -20,18 +19,17 @@ The application allows users to manage items for sale, process transactions, and
 - Swagger for API documentation
 
 ### Frontend
-- React 19.0.0
-- React Router 7.4.0
-- Bootstrap 5.3.3
-- Axios 1.8.4
-- SignalR client (@microsoft/signalr 8.0.7)
+- React 19
+- Bootstrap 5.3
+- Axios
+- SignalR client
 - FontAwesome icons
 
 ## Prerequisites
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download)
-- [Node.js](https://nodejs.org/) (for npm)
+- [Node.js](https://nodejs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/) (for containerized deployment)
+- [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Getting Started
 
@@ -123,3 +121,10 @@ The API includes Swagger documentation, available at `/swagger` when the API is 
 
 ## Database Migration
 The application automatically applies migrations and seeds initial data on startup through the `DatabaseInitializer.InitializeAsync()` method.
+
+## Testing
+To run the unit tests, navigate to the CharitySale.Tests directory and execute:
+
+```json
+dotnet test
+```

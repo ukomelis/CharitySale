@@ -84,7 +84,7 @@ public class ItemsController(IItemService itemService,
     }
     
     /// <summary>
-    /// Updates the quantity of a specific item
+    /// Sets stock of a specific item
     /// </summary>
     /// <param name="id">The unique identifier of the item</param>
     /// <param name="request">The request containing the new quantity</param>
@@ -98,7 +98,7 @@ public class ItemsController(IItemService itemService,
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<Item>> UpdateItemQuantity(Guid id, [FromBody] UpdateItemQuantity request)
+    public async Task<ActionResult<Item>> SetItemStock(Guid id, [FromBody] UpdateItemQuantity request)
     {
         try
         {
