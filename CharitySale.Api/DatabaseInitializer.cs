@@ -21,6 +21,7 @@ public static class DatabaseInitializer
         {
             try
             {
+                logger.LogInformation("Attempting to connect to the database");
                 if (await context.Database.CanConnectAsync())
                     return;
             }

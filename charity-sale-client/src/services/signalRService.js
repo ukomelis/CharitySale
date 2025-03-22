@@ -1,6 +1,8 @@
 // services/signalRService.js
 import * as signalR from "@microsoft/signalr";
 
+const SIGNALR_HUB_URL = process.env.REACT_APP_SIGNALR_HUB_URL;
+
 class SignalRService {
   constructor() {
     this.connection = null;
@@ -14,7 +16,7 @@ class SignalRService {
   async initialize() {
     try {
       this.connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:8080/charitySaleHub")
+        .withUrl(SIGNALR_HUB_URL)
         .withAutomaticReconnect()
         .build();
 

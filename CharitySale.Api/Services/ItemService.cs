@@ -71,7 +71,7 @@ public class ItemService(IItemRepository itemRepository, ILogger<ItemService> lo
         return await UpdateItemQuantityInternalAsync(id, quantity, true);
     }
 
-    public async Task<Result<Item>> UpdateItemStockAsync(Guid id, int quantityChange)
+    public async Task<Result<Item>> DecrementItemStockAsync(Guid id, int quantityChange)
     {
         return await UpdateItemQuantityInternalAsync(id, quantityChange, false);
     }
